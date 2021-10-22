@@ -1,0 +1,7 @@
+#ignoring files
+  .idea/
+        EmployeeWage.iml
+      
+        out/
+      
+
