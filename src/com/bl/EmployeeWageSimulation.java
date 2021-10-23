@@ -8,7 +8,7 @@ public class EmployeeWageSimulation {
     static int wagePerHr = 20;
     private static int empCheck;
 
-    public static void main(String[] args) {
+    public static void computeEmpWage() {
         System.out.println("Welcome to employee wage computation");
         for (int i = 0; i <= workdayPerMon; i++) {
             int empCheck = (int) Math.floor(Math.random() * 10) % 3;
@@ -28,5 +28,9 @@ public class EmployeeWageSimulation {
         System.out.println(totalworkhrs * wagePerHr);
 
 
+    }
+
+    public static void main(String[] args) {
+        computeEmpWage();
     }
 }
