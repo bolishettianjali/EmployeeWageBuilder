@@ -60,10 +60,15 @@ public class EmployeeWageSimulation implements IComputeEmpWage{
         return  totalEmpHrs * companyEmpWage.empRatePerHour;
     }
 
+    public int getTotalWage(String company) {
+        return companyToEmpWageMap.get(company).totalEmpWage;
+    }
+
     public static void main(String[] args) {
         EmployeeWageSimulation employeeWageSimulation=new EmployeeWageSimulation();
         employeeWageSimulation.addCompanyEmpWage("Dmart", 20, 2, 10);
         employeeWageSimulation.addCompanyEmpWage("Reliance",10,4,20);
         employeeWageSimulation.computeEmpWage();
+        System.out.println("\nTotal Wage for DMart Company: " + employeeWageSimulation.getTotalWage("Dmart"));
     }
 }
