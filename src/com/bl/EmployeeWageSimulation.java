@@ -1,24 +1,31 @@
 package com.bl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EmployeeWageSimulation implements IComputeEmpWage{
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
 
     private int numOfCompany=0;
-    private ArrayList<CompanyEmpWage> companyEmpWageArray;
+    private ArrayList<CompanyEmpWage> companyEmpWageList;
+    private Map<String, CompanyEmpWage> companyToEmpWageMap;
 
     public EmployeeWageSimulation(){
-        companyEmpWageArray =  new ArrayList<>();
+        companyEmpWageList =  new ArrayList<>();
+        companyToEmpWageMap = new HashMap<>();
     }
 
     public void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
-        companyEmpWageArray.add(new CompanyEmpWage(company,empRatePerHour,numOfWorkingDays,maxHoursPerMonth));
+        CompanyEmpWage companyEmpWage = new CompanyEmpWage(company,empRatePerHour,numOfWorkingDays,maxHoursPerMonth);
+
+        companyEmpWageList.add(companyEmpWage);
+        companyToEmpWageMap.put(company, companyEmpWage);
     }
 
     public void computeEmpWage(){
-        for (CompanyEmpWage companyEmpWage : companyEmpWageArray) {
+        for (CompanyEmpWage companyEmpWage : companyEmpWageList) {
             companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
             System.out.println(companyEmpWage + "\n");
         }
@@ -52,7 +59,6 @@ public class EmployeeWageSimulation implements IComputeEmpWage{
 
         return  totalEmpHrs * companyEmpWage.empRatePerHour;
     }
-
 
     public static void main(String[] args) {
         EmployeeWageSimulation employeeWageSimulation=new EmployeeWageSimulation();
