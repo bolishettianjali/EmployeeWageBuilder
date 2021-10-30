@@ -1,6 +1,6 @@
 package com.bl;
 
-public class EmployeeWageSimulation {
+public class EmployeeWageSimulation implements IComputeEmpWage{
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
 
@@ -10,21 +10,23 @@ public class EmployeeWageSimulation {
     public EmployeeWageSimulation(){
         companyEmpWageArray=new  CompanyEmpWage[5];
     }
-    private void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
+    public void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
         companyEmpWageArray[numOfCompany]=new CompanyEmpWage(company,empRatePerHour,numOfWorkingDays,maxHoursPerMonth);
         numOfCompany++;
     }
-    private void computeEmpWage(){
+    public void computeEmpWage(){
         for(int i=0;i<numOfCompany;i++) {
             companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
+            System.out.println(companyEmpWageArray[i] + "\n");
         }
-        }
+    }
 
 
     public int computeEmpWage(CompanyEmpWage companyEmpWage) {
         int empHrs = 0,
                 totalEmpHrs = 0,
                 totalWorkingDays = 0;
+                int day = 1;
 
         while (totalEmpHrs <= companyEmpWage.maxHoursPerMonth && totalWorkingDays < companyEmpWage.numOfWorkingDays) {
             totalWorkingDays++;
@@ -42,10 +44,11 @@ public class EmployeeWageSimulation {
                     empHrs = 0;
             }
             totalEmpHrs += empHrs;
-            System.out.println("Day#:" + totalWorkingDays + "Emp Hr:" + empHrs);
+            System.out.println("Day-"+day+": Total working days: "+ totalWorkingDays + ", Emp Hrs:" + empHrs);
+            day++;
         }
 
-      return  totalEmpHrs * companyEmpWage.empRatePerHour;
+        return  totalEmpHrs * companyEmpWage.empRatePerHour;
     }
 
 
